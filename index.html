@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glow de dentro - Jogo do autocuidado</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" rel="stylesheet">
+<style>
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f7e9f6}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.gw{display:flex;justify-content:center;padding:1rem 0;font-family:'Quicksand',sans-serif}
+.ph{position:relative;width:340px;height:700px;border-radius:52px;background:#5a2c78;padding:11px;box-sizing:border-box;border:3px solid #e9cdf5}
+.sc{position:relative;width:100%;height:100%;border-radius:42px;overflow:hidden;background:#fdeef6}
+.dc{position:absolute;pointer-events:none;z-index:1;opacity:.9}
+.fl{animation:fl 5s ease-in-out infinite}
+.tw{animation:tw 2.6s ease-in-out infinite}
+.sw{animation:sw 3.4s ease-in-out infinite}
+.fa{animation:fa .45s ease-in-out infinite}
+.pop{animation:pop .45s ease-out both}
+.pu{animation:pu .8s ease-in-out infinite}
+.fall{position:absolute;top:-30px;animation:fall 3.4s linear both;pointer-events:none;z-index:6}
+.eq{display:inline-flex;align-items:flex-end;gap:2px;height:14px}
+.eq span{display:block;width:3px;height:14px;border-radius:2px;background:#e86aa6;transform-origin:bottom;animation:eq .9s ease-in-out infinite}
+.eq span:nth-child(even){background:#b98be0}
+.eq.off span{animation-play-state:paused;transform:scaleY(.3)}
+@keyframes fl{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-12px) rotate(6deg)}}
+@keyframes tw{0%,100%{opacity:.3;transform:scale(.75)}50%{opacity:1;transform:scale(1.1)}}
+@keyframes sw{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(9deg) translateY(-3px)}}
+@keyframes fa{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.5)}}
+@keyframes pop{0%{opacity:0;transform:translateY(14px) scale(.96)}100%{opacity:1;transform:none}}
+@keyframes pu{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+@keyframes eq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+@keyframes fall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(720px) rotate(240deg);opacity:0}}
+.bt{border:none;border-radius:999px;background:#e86aa6;color:#fff;font-family:inherit;font-size:16px;font-weight:500;padding:12px 24px;cursor:pointer;width:100%;height:auto}
+.bt:hover{background:#d9579a}
+.bt2{border:1.5px solid #e3c4f2;border-radius:999px;background:#fff;color:#6a3593;font-family:inherit;font-size:15px;font-weight:500;padding:10px 20px;cursor:pointer;width:100%;height:auto}
+.bt2:hover{background:#f8effd}
+.fi{width:100%;box-sizing:border-box;border:1.5px solid #f1c6dc;border-radius:16px;background:#fff;color:#4a2366;font-family:inherit;font-size:15px;padding:12px 14px}
+.fi:focus{outline:none;border-color:#b98be0}
+.fi::placeholder{color:#c79bb6}
+.chip{display:inline-flex;align-items:center;gap:5px;border-radius:999px;font-size:12px;font-weight:500;padding:5px 11px}
+</style>
+</head>
+<body>
+<h2 class="sr-only">Jogo do autocuidado em moldura de celular com 20 perguntas pessoais, cronômetro de 2 minutos e meio, música suave e decoração de maquiagens, frutinhas, flores, corações e borboletas.</h2>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="hh" viewBox="0 0 24 24"><path d="M12 21C12 21 3 15 3 9a4.5 4.5 0 0 1 9-1.2A4.5 4.5 0 0 1 21 9c0 6-9 12-9 12z"/></symbol>
+<symbol id="st" viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17.2 5.8 20.9l1.6-7L2 9.2l7.1-.6z"/></symbol>
+<symbol id="sp" viewBox="0 0 24 24"><path d="M12 1C13 8 16 11 23 12 16 13 13 16 12 23 11 16 8 13 1 12 8 11 11 8 12 1z"/></symbol>
+<symbol id="fw" viewBox="0 0 32 32"><ellipse cx="16" cy="8" rx="5" ry="7"/><ellipse cx="16" cy="8" rx="5" ry="7" transform="rotate(72 16 16)"/><ellipse cx="16" cy="8" rx="5" ry="7" transform="rotate(144 16 16)"/><ellipse cx="16" cy="8" rx="5" ry="7" transform="rotate(216 16 16)"/><ellipse cx="16" cy="8" rx="5" ry="7" transform="rotate(288 16 16)"/><circle cx="16" cy="16" r="4.5" fill="#fff3b8"/></symbol>
+<symbol id="bf" viewBox="0 0 32 32"><path d="M16 15C11 4 2 4 3 11c1 5 8 6 13 4z"/><path d="M16 15C21 4 30 4 29 11c-1 5-8 6-13 4z"/><path d="M16 17c-5 1-10 5-8 9 2 3 7-1 8-8z" opacity=".75"/><path d="M16 17c5 1 10 5 8 9-2 3-7-1-8-8z" opacity=".75"/><rect x="15" y="10" width="2" height="15" rx="1" fill="#4a2366"/></symbol>
+<symbol id="sb" viewBox="0 0 32 32"><path d="M16 29C9 26 5 19 6 13c1-4 5-5 10-5s9 1 10 5c1 6-3 13-10 16z" fill="#f6a3b4"/><path d="M9 10c2-2 5-2 7 0 2-2 5-2 7 0-2 2-4 3-7 3s-5-1-7-3z" fill="#c9a7f0"/><rect x="15" y="3" width="2" height="6" rx="1" fill="#9b6fd6"/><g fill="#fff4f7"><ellipse cx="10.5" cy="15" rx=".8" ry="1.1"/><ellipse cx="21.5" cy="15" rx=".8" ry="1.1"/><ellipse cx="12" cy="23" rx=".8" ry="1.1"/><ellipse cx="20" cy="23" rx=".8" ry="1.1"/><ellipse cx="16" cy="26" rx=".8" ry="1.1"/></g><circle cx="13.3" cy="17" r="1.1" fill="#5b2b82"/><circle cx="18.7" cy="17" r="1.1" fill="#5b2b82"/><path d="M14.8 19.2q1.2 1 2.4 0" fill="none" stroke="#5b2b82" stroke-width=".9" stroke-linecap="round"/><ellipse cx="11.5" cy="19.3" rx="1.4" ry=".8" fill="#ee7f9c" opacity=".6"/><ellipse cx="20.5" cy="19.3" rx="1.4" ry=".8" fill="#ee7f9c" opacity=".6"/></symbol>
+<symbol id="gp" viewBox="0 0 32 32"><path d="M16 7Q17 3 20 2" fill="none" stroke="#7a4fb0" stroke-width="1.6" stroke-linecap="round"/><path d="M17 6c3-3 8-2 9 1-3 2-7 2-9-1z" fill="#f4a6c8"/><g fill="#c39ae8"><circle cx="10" cy="11" r="4"/><circle cx="16" cy="10" r="4"/><circle cx="22" cy="11" r="4"/></g><g fill="#b085df"><circle cx="13" cy="17" r="4"/><circle cx="19" cy="17" r="4"/></g><circle cx="16" cy="23.5" r="4" fill="#a174d6"/><g fill="#fff" opacity=".55"><circle cx="8.8" cy="9.6" r="1"/><circle cx="14.8" cy="8.6" r="1"/><circle cx="20.8" cy="9.6" r="1"/><circle cx="14.8" cy="22.2" r="1"/></g><circle cx="14.4" cy="16.8" r=".9" fill="#4a2366"/><circle cx="17.6" cy="16.8" r=".9" fill="#4a2366"/><path d="M15.3 18.6q.7.6 1.4 0" fill="none" stroke="#4a2366" stroke-width=".8" stroke-linecap="round"/><ellipse cx="12.8" cy="18.2" rx="1" ry=".6" fill="#f08cbc" opacity=".7"/><ellipse cx="19.2" cy="18.2" rx="1" ry=".6" fill="#f08cbc" opacity=".7"/></symbol>
+<symbol id="ch" viewBox="0 0 32 32"><path d="M11 18Q13 10 21 4" fill="none" stroke="#9b6fd6" stroke-width="1.5" stroke-linecap="round"/><path d="M22 18Q21 11 21 4" fill="none" stroke="#9b6fd6" stroke-width="1.5" stroke-linecap="round"/><path d="M21 4c3-2 7-1 8 2-3 2-6 1-8-2z" fill="#e3c4f2"/><circle cx="10.5" cy="22.5" r="6" fill="#f4a3a3"/><circle cx="22" cy="23" r="6" fill="#f7b2b2"/><circle cx="8.5" cy="20.5" r="1.3" fill="#fff" opacity=".6"/><circle cx="20" cy="21" r="1.3" fill="#fff" opacity=".6"/><circle cx="9" cy="23.2" r=".8" fill="#5b2b82"/><circle cx="12" cy="23.2" r=".8" fill="#5b2b82"/><path d="M9.8 24.9q.7.6 1.4 0" fill="none" stroke="#5b2b82" stroke-width=".8" stroke-linecap="round"/><circle cx="20.6" cy="23.7" r=".8" fill="#5b2b82"/><circle cx="23.6" cy="23.7" r=".8" fill="#5b2b82"/><path d="M21.4 25.4q.7.6 1.4 0" fill="none" stroke="#5b2b82" stroke-width=".8" stroke-linecap="round"/></symbol>
+<symbol id="wm" viewBox="0 0 32 32"><path d="M3 12a13 13 0 0 0 26 0z" fill="#d9b8f3"/><path d="M5.5 12a10.5 10.5 0 0 0 21 0z" fill="#fff3f8"/><path d="M7 12a9 9 0 0 0 18 0z" fill="#f7a8bf"/><g fill="#7a4fb0"><ellipse cx="10.5" cy="15.5" rx=".7" ry="1.1"/><ellipse cx="21.5" cy="15.5" rx=".7" ry="1.1"/><ellipse cx="16" cy="19.5" rx=".7" ry="1.1"/></g><circle cx="13.8" cy="14.3" r=".9" fill="#5b2b82"/><circle cx="18.2" cy="14.3" r=".9" fill="#5b2b82"/><path d="M15.2 16q.8.7 1.6 0" fill="none" stroke="#5b2b82" stroke-width=".8" stroke-linecap="round"/><ellipse cx="12.3" cy="15.9" rx="1" ry=".6" fill="#ee7f9c" opacity=".7"/><ellipse cx="19.7" cy="15.9" rx="1" ry=".6" fill="#ee7f9c" opacity=".7"/></symbol>
+<symbol id="pc" viewBox="0 0 32 32"><path d="M16 9c3-4 8-4 9-1-3 2-6 2-9 1z" fill="#c9a7f0"/><circle cx="16" cy="18" r="10" fill="#fbc2d2"/><path d="M16 9q-3 5 0 10" fill="none" stroke="#f29ab5" stroke-width="1.2" stroke-linecap="round"/><ellipse cx="11" cy="14" rx="2" ry="1.3" fill="#fff" opacity=".5"/><circle cx="13" cy="19" r="1.1" fill="#5b2b82"/><circle cx="19" cy="19" r="1.1" fill="#5b2b82"/><path d="M14.8 21.2q1.2 1 2.4 0" fill="none" stroke="#5b2b82" stroke-width=".9" stroke-linecap="round"/><ellipse cx="10.5" cy="21" rx="1.5" ry=".8" fill="#ee7f9c" opacity=".6"/><ellipse cx="21.5" cy="21" rx="1.5" ry=".8" fill="#ee7f9c" opacity=".6"/></symbol>
+<symbol id="bw" viewBox="0 0 32 32"><path d="M16 16C11 9 4 9 4 13s4 9 12 3z" fill="#f4a6c8"/><path d="M16 16c5-7 12-7 12-3s-4 9-12 3z" fill="#f4a6c8"/><path d="M14.5 17L11 26l3-1.2 1.5 2.2 1-9z" fill="#ec8fb8"/><path d="M17.5 17L21 26l-3-1.2-1.5 2.2-1-9z" fill="#ec8fb8"/><circle cx="16" cy="16" r="2.6" fill="#e86aa6"/></symbol>
+<symbol id="lp" viewBox="0 0 32 32"><rect x="10" y="18" width="12" height="12" rx="2.5" fill="#9b6fd6"/><rect x="11.5" y="13" width="9" height="6" rx="1" fill="#e3c4f2"/><path d="M13 13V7c0-2.5 2.5-4.5 6.5-5.5V13z" fill="#e86aa6"/><rect x="12.5" y="21" width="2" height="6" rx="1" fill="#fff" opacity=".4"/></symbol>
+<symbol id="np" viewBox="0 0 32 32"><rect x="12.5" y="2" width="7" height="10" rx="1.8" fill="#7a4fb0"/><rect x="8.5" y="11" width="15" height="19" rx="5.5" fill="#f2a0a0"/><rect x="11.5" y="14" width="2.6" height="10" rx="1.3" fill="#fff" opacity=".55"/><path d="M19 22s-2-1.3-2-2.6a1 1 0 0 1 2-.3 1 1 0 0 1 2 .3c0 1.3-2 2.6-2 2.6z" fill="#fff" opacity=".8"/></symbol>
+<symbol id="bl" viewBox="0 0 32 32"><circle cx="16" cy="16" r="13" fill="#d9b8f3"/><circle cx="16" cy="16" r="10" fill="#f7a8c8"/><g fill="#ee8fb5"><circle cx="12" cy="14" r="1.2"/><circle cx="19" cy="12" r="1.2"/><circle cx="20" cy="19" r="1.2"/><circle cx="13" cy="20" r="1.2"/></g><path d="M9.5 12a7.5 7.5 0 0 1 5-4" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".7"/></symbol>
+<symbol id="br" viewBox="0 0 32 32"><g transform="rotate(35 16 16)"><rect x="14.5" y="13" width="3" height="18" rx="1.5" fill="#9b6fd6"/><rect x="13.3" y="10" width="5.4" height="4.5" rx="1" fill="#e3c4f2"/><path d="M13.3 10.5C11.5 6 13.5 1 16 1s4.5 5 2.7 9.5z" fill="#f4a6c8"/><path d="M14.5 9c-.5-2.5.3-5 1.5-6" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity=".6"/></g></symbol>
+<symbol id="pf" viewBox="0 0 32 32"><rect x="11" y="2" width="10" height="6" rx="2" fill="#b98be0"/><rect x="13.5" y="7.5" width="5" height="5" fill="#e3c4f2"/><rect x="6.5" y="12" width="19" height="18" rx="5.5" fill="#f4c0d8"/><rect x="9" y="15" width="2.5" height="10" rx="1.2" fill="#fff" opacity=".5"/><path d="M16 25s-4-2.6-4-5.2a2 2 0 0 1 4-.6 2 2 0 0 1 4 .6c0 2.6-4 5.2-4 5.2z" fill="#e86aa6"/></symbol>
+<symbol id="es" viewBox="0 0 32 32"><rect x="2.5" y="7" width="27" height="19" rx="4.5" fill="#f8e6f7" stroke="#c9a7f0" stroke-width="1.5"/><circle cx="9" cy="13" r="2.8" fill="#f7a8c8"/><circle cx="16" cy="13" r="2.8" fill="#c39ae8"/><circle cx="23" cy="13" r="2.8" fill="#f4a3a3"/><circle cx="9" cy="20" r="2.8" fill="#e86aa6"/><circle cx="16" cy="20" r="2.8" fill="#9b6fd6"/><circle cx="23" cy="20" r="2.8" fill="#fbc2d2"/></symbol>
+<symbol id="lg" viewBox="0 0 32 32"><rect x="12.5" y="1.5" width="7" height="12" rx="2" fill="#9b6fd6"/><rect x="11.5" y="13" width="9" height="17" rx="3.5" fill="#f7b2c4"/><rect x="13.5" y="16" width="2" height="10" rx="1" fill="#fff" opacity=".55"/><circle cx="18" cy="19" r="1" fill="#fff" opacity=".7"/></symbol>
+<symbol id="mr" viewBox="0 0 32 32"><rect x="14.5" y="21" width="3" height="10" rx="1.5" fill="#9b6fd6"/><circle cx="16" cy="13" r="11" fill="#f7a8c8"/><circle cx="16" cy="13" r="8" fill="#fff6fb"/><path d="M10.5 11a6 6 0 0 1 4-4" fill="none" stroke="#f3cde0" stroke-width="1.8" stroke-linecap="round"/><path d="M16 17s-3-2-3-4a1.5 1.5 0 0 1 3-.5 1.5 1.5 0 0 1 3 .5c0 2-3 4-3 4z" fill="#f2a0a0"/></symbol>
+</defs></svg>
+<div class="gw">
+<div class="ph">
+<div style="position:absolute;left:-6px;top:130px;width:4px;height:38px;border-radius:3px;background:#4a2366"></div>
+<div style="position:absolute;left:-6px;top:180px;width:4px;height:60px;border-radius:3px;background:#4a2366"></div>
+<div style="position:absolute;right:-6px;top:170px;width:4px;height:80px;border-radius:3px;background:#4a2366"></div>
+<div class="sc" id="scr">
+<div style="position:absolute;width:260px;height:260px;border-radius:50%;background:#f4e4fc;top:-90px;right:-110px"></div>
+<div style="position:absolute;width:240px;height:240px;border-radius:50%;background:#fbdcea;bottom:-100px;left:-110px"></div>
+<div style="position:absolute;width:130px;height:130px;border-radius:50%;background:#f8e6f7;top:300px;left:-70px"></div>
+<div style="position:absolute;width:110px;height:110px;border-radius:50%;background:#fde4e4;top:420px;right:-60px"></div>
+<div id="sbar" style="position:absolute;top:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 24px 0 30px;z-index:4;color:#4a2366;font-size:13px;font-weight:500">
+<span id="clk">12:00</span>
+<div style="display:flex;align-items:center;gap:6px"><button id="mb" data-m="1" aria-label="Ligar ou desligar a música" style="border:none;background:#f3e2fb;border-radius:999px;width:30px;height:22px;min-height:0;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#7a3e9d"><i id="mi" class="ti ti-music-off" style="font-size:14px" aria-hidden="true"></i></button><i class="ti ti-wifi" style="font-size:15px" aria-hidden="true"></i><i class="ti ti-battery-4" style="font-size:17px" aria-hidden="true"></i></div>
+</div>
+<div style="position:absolute;top:11px;left:50%;margin-left:-46px;width:92px;height:26px;border-radius:999px;background:#1e0f29;z-index:5"></div>
+<div style="position:absolute;bottom:8px;left:50%;margin-left:-55px;width:110px;height:5px;border-radius:999px;background:#d7b9ee;z-index:4"></div>
+<div id="view" style="position:relative;z-index:2;height:100%;box-sizing:border-box;padding:54px 26px 28px;display:flex;flex-direction:column">
+<div class="pop" style="display:flex;flex-direction:column;align-items:center;text-align:center;height:100%">
+<span class="chip" style="background:#efe3fb;color:#6a3593;margin-top:6px"><i class="ti ti-sparkles" aria-hidden="true"></i>Projeto Cyber Maker</span>
+<svg width="220" height="104" viewBox="0 0 220 122" style="margin-top:8px" aria-hidden="true">
+<ellipse cx="120" cy="116" rx="92" ry="5" fill="#f6d4e5"/>
+<circle cx="62" cy="64" r="42" fill="#f7a8c8"/>
+<circle cx="62" cy="64" r="33" fill="#fff6fb" stroke="#e86aa6" stroke-width="2"/>
+<path d="M42 52a24 24 0 0 1 14-14" fill="none" stroke="#f3cde0" stroke-width="4" stroke-linecap="round"/>
+<use href="#hh" x="52" y="56" width="20" height="20" fill="#f2a0a0"/>
+<use href="#sp" x="70" y="40" width="12" height="12" fill="#c9a7f0"/>
+<rect x="118" y="74" width="24" height="40" rx="5" fill="#9b6fd6"/>
+<rect x="121" y="60" width="18" height="16" rx="2" fill="#e3c4f2"/>
+<path d="M123 60V40c0-6 5-12 14-15v35z" fill="#e86aa6"/>
+<rect x="168" y="30" width="14" height="30" rx="3" fill="#5b2b82"/>
+<rect x="158" y="58" width="34" height="56" rx="13" fill="#f2a0a0"/>
+<rect x="165" y="68" width="6" height="28" rx="3" fill="#ffffff" opacity=".55"/>
+<use href="#sb" x="186" y="84" width="30" height="30"/>
+<use href="#gp" x="2" y="84" width="30" height="30"/>
+<use href="#st" x="148" y="6" width="14" height="14" fill="#c9a7f0"/>
+<use href="#hh" x="198" y="40" width="14" height="14" fill="#f2a0a0"/>
+<use href="#sp" x="102" y="18" width="12" height="12" fill="#e86aa6"/>
+<use href="#fw" x="8" y="2" width="20" height="20" fill="#d2b3f2"/>
+</svg>
+<div style="font-family:'Dancing Script',cursive;font-size:42px;line-height:1.1;color:#c2408a;margin-top:2px">Glow & Cuidados Femininos</div>
+<div style="font-size:15px;color:#7a3e9d;margin-top:2px">O jogo do autocuidado</div>
+<div style="display:flex;align-items:center;justify-content:center;gap:7px;margin-top:10px" aria-hidden="true">
+<svg class="sw" width="26" height="26"><use href="#sb"/></svg>
+<svg width="9" height="9"><use href="#hh" fill="#f2a0a0"/></svg>
+<svg class="sw" width="26" height="26" style="animation-delay:.5s"><use href="#gp"/></svg>
+<svg width="9" height="9"><use href="#st" fill="#c9a7f0"/></svg>
+<svg class="sw" width="26" height="26" style="animation-delay:1s"><use href="#ch"/></svg>
+<svg width="9" height="9"><use href="#hh" fill="#f2a0a0"/></svg>
+<svg class="sw" width="26" height="26" style="animation-delay:1.5s"><use href="#wm"/></svg>
+<svg width="9" height="9"><use href="#st" fill="#c9a7f0"/></svg>
+<svg class="sw" width="26" height="26" style="animation-delay:2s"><use href="#pc"/></svg>
+</div>
+<div style="display:flex;align-items:center;justify-content:center;gap:9px;margin-top:6px" aria-hidden="true">
+<svg class="sw" width="24" height="24" style="animation-delay:.3s"><use href="#lp"/></svg>
+<svg class="sw" width="24" height="24" style="animation-delay:.8s"><use href="#es"/></svg>
+<svg class="sw" width="24" height="24" style="animation-delay:1.3s"><use href="#pf"/></svg>
+<svg class="sw" width="24" height="24" style="animation-delay:1.8s"><use href="#np"/></svg>
+<svg class="sw" width="24" height="24" style="animation-delay:.6s"><use href="#bl"/></svg>
+<svg class="sw" width="24" height="24" style="animation-delay:1.1s"><use href="#br"/></svg>
+<svg class="sw" width="24" height="24" style="animation-delay:1.6s"><use href="#lg"/></svg>
+</div>
+<div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:10px">
+<span class="chip" style="background:#fde3ef;color:#a8326e"><i class="ti ti-heart" aria-hidden="true"></i>20 perguntas</span>
+<span class="chip" style="background:#efe3fb;color:#6a3593"><i class="ti ti-clock" aria-hidden="true"></i>2min30 cada</span>
+</div>
+<button id="sm" data-m="1" style="margin-top:10px;border:1.5px solid #ecdcf8;background:#fff;border-radius:999px;padding:6px 14px;height:auto;min-height:0;display:inline-flex;align-items:center;gap:8px;cursor:pointer;color:#6a3593;font-family:inherit;font-size:13px;font-weight:500"><span class="eq off" id="eqS"><span></span><span style="animation-delay:.2s"></span><span style="animation-delay:.4s"></span><span style="animation-delay:.1s"></span></span><span id="smL">Tocar música suave</span></button>
+<div style="width:100%;margin-top:auto;text-align:left">
+<label for="nm" style="font-size:14px;color:#6a3593;font-weight:500;display:block;margin:0 0 6px 4px">Como você se chama?</label>
+<input id="nm" class="fi" style="height:46px" placeholder="Maria" maxlength="30" autocomplete="off">
+<div id="nmErr" style="font-size:13px;color:#c0395b;min-height:18px;margin:4px 0 0 4px"></div>
+<button id="go" class="bt" style="margin-top:4px"><i class="ti ti-sparkles" aria-hidden="true"></i> Começar o jogo</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+const T=150;
+const C=[{n:'Pele',i:'ti-droplet',bg:'#fde3ef',fg:'#a8326e'},{n:'Rosto',i:'ti-mood-smile',bg:'#efe3fb',fg:'#6a3593'},{n:'Corpo',i:'ti-bath',bg:'#fde3ef',fg:'#a8326e'},{n:'Cabelo',i:'ti-feather',bg:'#efe3fb',fg:'#6a3593'},{n:'Unhas',i:'ti-brush',bg:'#fde3ef',fg:'#a8326e'}];
+const Q=[
+[0,'Qual é o seu tipo de pele (seca, oleosa, mista ou sensível) e como você percebeu isso?'],
+[0,'Qual produto de skincare você nunca deixa de usar? Por quê?'],
+[0,'Você usa protetor solar todos os dias? Conte como é esse hábito para você.'],
+[0,'O que você costuma fazer quando aparece uma espinha ou mancha na pele?'],
+[1,'Como é a sua rotina de limpeza do rosto de manhã e à noite?'],
+[1,'Qual maquiagem faz você se sentir mais confiante e bonita?'],
+[1,'Você tira a maquiagem antes de dormir? O que você usa para isso?'],
+[1,'Qual parte do seu rosto você mais ama e por quê?'],
+[2,'Qual é o seu hidratante ou perfume favorito para o corpo?'],
+[2,'Quantos copos de água você costuma beber por dia? Você acha que é suficiente?'],
+[2,'Qual atividade ou movimento faz o seu corpo se sentir bem?'],
+[2,'Como seria o seu banho relaxante perfeito?'],
+[3,'Como você descreveria o seu cabelo: liso, ondulado, cacheado ou crespo? Do que ele mais precisa?'],
+[3,'Qual cuidado você mais faz no seu cabelo durante a semana?'],
+[3,'Qual penteado faz você se sentir mais linda?'],
+[3,'Você já fez uma mudança grande no cabelo? Como você se sentiu?'],
+[4,'Qual é a sua cor de esmalte favorita e por que ela combina com você?'],
+[4,'Você prefere fazer as unhas em casa ou no salão? Por quê?'],
+[4,'Como você cuida das suas cutículas e da hidratação das mãos?'],
+[4,'Se você pudesse criar a sua própria nail art, como ela seria?']
+];
+const D=[['bf',6,58,26,'fl',0,'#b98be0'],['lp',8,104,20,'sw',.2],['sb',6,146,19,'sw',.4],['hh',14,190,12,'fl',1.2,'#f2a0a0'],['es',4,220,22,'sw',.9],['gp',6,262,20,'sw',1],['st',14,306,11,'tw',.5,'#c9a7f0'],['pf',6,336,20,'sw',1.4],['ch',6,380,19,'sw',1.6],['sp',12,424,12,'tw',1.1,'#e86aa6'],['np',8,452,19,'sw',.6],['pc',6,496,18,'sw',.2],['hh',12,538,13,'fl',2,'#f4b0b0'],['lg',8,564,20,'sw',1.9],['fw',6,626,26,'fl',.8,'#f7a8c8'],
+['fw',-14,52,22,'fl',2,'#d2b3f2'],['ch',-6,94,18,'sw',.7],['br',-6,130,22,'sw',1.5],['sp',-12,172,12,'tw',.3,'#b98be0'],['wm',-4,198,22,'sw',1.8],['mr',-6,236,22,'sw',.4],['bf',-6,282,22,'fl',1.4,'#f08cbc'],['hh',-14,326,13,'fl',.6,'#f2a0a0'],['bl',-6,352,20,'sw',1.2],['sb',-8,394,18,'sw',1.1],['lp',-8,432,19,'sw',.8],['gp',-6,470,19,'sw',.5],['st',-14,508,12,'tw',1.7,'#f08cbc'],['pf',-8,532,19,'sw',2.1],['bw',-6,570,22,'sw',.9],['es',-6,608,20,'sw',1.3],['sp',-16,648,11,'tw',.4,'#c9a7f0']];
+const SCR=document.getElementById('scr');
+D.forEach(([s,x,y,z,a,dl,f])=>{const d=document.createElement('div');d.className='dc '+a;d.style.top=y+'px';d.style[x<0?'right':'left']=Math.abs(x)+'px';d.style.animationDelay=dl+'s';d.innerHTML=`<svg width="${z}" height="${z}" ${s==='bf'?'class="fa"':''} aria-hidden="true"><use href="#${s}" ${f?`fill="${f}"`:''}/></svg>`;SCR.insertBefore(d,document.getElementById('sbar'))});
+const V=document.getElementById('view');
+const START=V.innerHTML;
+let S={name:'',i:0,ans:[],t0:0,tm:null};
+function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function fmt(t){t=Math.round(t);return Math.floor(t/60)+':'+String(t%60).padStart(2,'0')}
+function clk(){const d=new Date();document.getElementById('clk').textContent=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
+clk();setInterval(clk,15000);
+
+let AC=null,MG,mOn=false,mInt=null,nt=0,st=0,userOff=false,touched=false;
+const CH=[[53,57,60,64],[52,55,59,62],[50,53,57,60],[48,52,55,59]];
+const MEL=[76,74,72,69,72,74,72,67,69,67,65,64,67,69,72,74];
+const AP=[0,-1,1,2,-1,3,2,-1];
+const E=60/68/2;
+const mf=m=>440*Math.pow(2,(m-69)/12);
+function ensureAC(){if(AC)return;AC=new (window.AudioContext||window.webkitAudioContext)();MG=AC.createGain();MG.gain.value=0.0001;const lp=AC.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1900;const dl=AC.createDelay(1);dl.delayTime.value=E*3;const fb=AC.createGain();fb.gain.value=0.3;const wet=AC.createGain();wet.gain.value=0.35;MG.connect(lp);lp.connect(AC.destination);lp.connect(dl);dl.connect(fb);fb.connect(dl);dl.connect(wet);wet.connect(AC.destination)}
+function tone(f,t,a,d,v,type){const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(v,t+a);g.gain.exponentialRampToValueAtTime(0.0001,t+d);o.connect(g);g.connect(MG);o.start(t);o.stop(t+d+0.05)}
+function sched(){while(nt<AC.currentTime+0.4){const bar=Math.floor(st/8),ch=CH[bar%4],s=st%8;if(s===0){ch.forEach(m=>tone(mf(m),nt,1.2,E*8+0.8,0.035,'sine'));tone(mf(ch[0]-12),nt,0.06,E*7,0.11,'sine')}const ap=AP[s];if(ap>=0)tone(mf(ch[ap]+12),nt,0.01,1.8,0.055,'triangle');if(s===4)tone(mf(MEL[bar%16]+12),nt,0.01,2.2,0.028,'sine');nt+=E;st++}}
+function updMB(){document.getElementById('mi').className='ti '+(mOn?'ti-music':'ti-music-off');document.getElementById('mb').style.background=mOn?'#f9cfe3':'#f3e2fb';['eqS','eqQ'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.toggle('off',!mOn)});const l=document.getElementById('smL');if(l)l.textContent=mOn?'Música suave tocando':'Tocar música suave';const q=document.getElementById('qmi');if(q)q.className='ti '+(mOn?'ti-player-pause':'ti-player-play')}
+function musicPlay(){ensureAC();AC.resume();if(mOn)return;mOn=true;nt=AC.currentTime+0.1;MG.gain.cancelScheduledValues(AC.currentTime);MG.gain.setTargetAtTime(0.65,AC.currentTime,0.5);mInt=setInterval(sched,80);updMB()}
+function musicStop(){if(!mOn)return;mOn=false;clearInterval(mInt);MG.gain.cancelScheduledValues(AC.currentTime);MG.gain.setTargetAtTime(0.0001,AC.currentTime,0.2);updMB()}
+function toggleM(){if(mOn){musicStop();userOff=true}else{musicPlay();userOff=false}}
+function chime(){if(!mOn||!AC)return;const t=AC.currentTime;tone(mf(84),t,0.005,0.9,0.045,'sine');tone(mf(91),t+0.1,0.005,1.1,0.035,'sine')}
+document.getElementById('mb').addEventListener('click',toggleM);
+document.querySelector('.ph').addEventListener('pointerdown',e=>{if(touched)return;touched=true;if(e.target.closest('[data-m]'))return;musicPlay()});
+
+function bindStart(){const inp=document.getElementById('nm'),er=document.getElementById('nmErr'),go=document.getElementById('go');document.getElementById('sm').addEventListener('click',toggleM);updMB();inp.addEventListener('input',()=>{er.textContent=''});inp.addEventListener('keydown',e=>{if(e.key==='Enter')go.click()});go.addEventListener('click',()=>{const v=inp.value.trim();if(!v){er.textContent='Escreva seu nome para começar';inp.focus();return}S={name:v,i:0,ans:[],t0:0,tm:null};if(!userOff)musicPlay();showQ()})}
+bindStart();
+
+function showQ(){clearInterval(S.tm);const [ci,q]=Q[S.i],c=C[ci];let hearts='';for(let k=0;k<20;k++){hearts+=`<svg width="11" height="11" aria-hidden="true"><use href="#hh" fill="${k<S.i?'#f2a0a0':(k===S.i?'#e86aa6':'#f3d3e2')}"/></svg>`}
+const fr=['sb','lp','gp','np','ch','pf','wm','es','pc','bl'][S.i%10];
+V.innerHTML=`<div class="pop" style="display:flex;flex-direction:column;height:100%">
+<div style="display:flex;justify-content:space-between;align-items:center"><span class="chip" style="background:${c.bg};color:${c.fg}"><i class="ti ${c.i}" aria-hidden="true"></i>${c.n}</span><span style="font-size:13px;font-weight:500;color:#7a3e9d">${S.i+1} de 20</span></div>
+<div style="display:flex;justify-content:center;gap:2px;margin-top:12px">${hearts}</div>
+<div style="display:flex;align-items:center;gap:14px;margin-top:14px">
+<div id="tw" style="position:relative;width:74px;height:74px;flex-shrink:0"><svg width="74" height="74" viewBox="0 0 72 72" aria-hidden="true"><circle cx="36" cy="36" r="30" fill="#fff" stroke="#f6d9e6" stroke-width="6"/><circle id="rg" cx="36" cy="36" r="30" fill="none" stroke="#b06ad8" stroke-width="6" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="0" transform="rotate(-90 36 36)"/></svg><div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1"><span id="sec" style="font-size:18px;font-weight:500;color:#5b2b82">2:30</span><span style="font-size:11px;color:#9a6bbd;margin-top:3px">min</span></div></div>
+<div style="flex:1;font-size:13px;color:#7a3e9d;line-height:1.45">${esc(S.name)}, essa é a<br>pergunta ${S.i+1}<br><span style="color:#b0709a">Responda do seu jeitinho</span></div>
+<svg class="sw" width="34" height="34" aria-hidden="true"><use href="#${fr}"/></svg></div>
+<div style="background:#fff;border-radius:20px;padding:18px 16px 16px;margin-top:14px;border:1.5px solid #f6d9e6;position:relative"><svg width="24" height="24" style="position:absolute;top:-13px;left:10px" aria-hidden="true"><use href="#lp"/></svg><svg width="22" height="22" style="position:absolute;top:-12px;left:32px" aria-hidden="true"><use href="#sb"/></svg><svg width="11" height="11" style="position:absolute;top:-5px;left:56px" aria-hidden="true"><use href="#hh" fill="#f2a0a0"/></svg><svg width="11" height="11" style="position:absolute;top:-5px;right:56px" aria-hidden="true"><use href="#st" fill="#c9a7f0"/></svg><svg width="22" height="22" style="position:absolute;top:-12px;right:32px" aria-hidden="true"><use href="#gp"/></svg><svg width="24" height="24" style="position:absolute;top:-13px;right:10px" aria-hidden="true"><use href="#np"/></svg><div style="font-size:16px;font-weight:500;color:#4a2366;line-height:1.45">${q}</div></div>
+<textarea id="ans" class="fi" style="height:104px;resize:none;margin-top:12px;line-height:1.5" placeholder="Escreva aqui a sua resposta" maxlength="400"></textarea>
+<div id="er" style="font-size:13px;color:#c0395b;min-height:18px;margin:4px 0 0 4px"></div>
+<div style="margin-top:auto;display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid #ecdcf8;border-radius:999px;padding:5px 5px 5px 14px"><span class="eq ${mOn?'':'off'}" id="eqQ"><span></span><span style="animation-delay:.2s"></span><span style="animation-delay:.4s"></span><span style="animation-delay:.1s"></span></span><div style="flex:1;min-width:0;line-height:1.25"><div style="font-size:12px;font-weight:500;color:#6a3593">Doce manhã</div><div style="font-size:11px;color:#a77ab8">música suave de fundo</div></div><button id="qm" data-m="1" aria-label="Tocar ou pausar a música" style="width:30px;height:30px;min-height:0;padding:0;border:none;border-radius:50%;background:#f9cfe3;color:#a8326e;display:flex;align-items:center;justify-content:center;cursor:pointer"><i id="qmi" class="ti ${mOn?'ti-player-pause':'ti-player-play'}" style="font-size:15px" aria-hidden="true"></i></button></div>
+<button id="nx" class="bt" style="margin-top:8px">${S.i<19?'Próxima':'Finalizar'} <i class="ti ti-arrow-right" aria-hidden="true"></i></button></div>`;
+const ta=document.getElementById('ans');ta.addEventListener('input',()=>{document.getElementById('er').textContent=''});document.getElementById('nx').addEventListener('click',()=>next(false));document.getElementById('qm').addEventListener('click',toggleM);ta.focus();
+S.t0=Date.now();tick();S.tm=setInterval(tick,250)}
+
+function tick(){const rg=document.getElementById('rg');if(!rg)return;const el=(Date.now()-S.t0)/1000,left=Math.max(0,T-el);rg.setAttribute('stroke-dashoffset',(188.5*(1-left/T)).toFixed(1));const se=document.getElementById('sec');se.textContent=fmt(Math.ceil(left));if(left<=20){rg.setAttribute('stroke','#ee8f8f');se.style.color='#d0606a';document.getElementById('tw').classList.add('pu')}if(left<=0)next(true)}
+
+function next(to){const ta=document.getElementById('ans');const v=ta?ta.value.trim():'';if(!to&&!v){document.getElementById('er').textContent='Escreva sua resposta antes de continuar';ta.focus();return}clearInterval(S.tm);const [ci,q]=Q[S.i];S.ans.push({ci,q,a:v,sec:Math.min(T,(Date.now()-S.t0)/1000)});chime();S.i++;if(S.i<Q.length)showQ();else showEnd()}
+
+function rain(){const sy=['hh','sb','lp','gp','bf','np','ch','fw','pf','wm','st','es','pc','bl'],cl={hh:'#f2a0a0',bf:'#b98be0',fw:'#f7a8c8',st:'#e86aa6'};for(let k=0;k<30;k++){const d=document.createElement('div');d.className='fall';const z=Math.round(14+Math.random()*16);d.style.left=Math.round(Math.random()*290)+'px';d.style.animationDelay=(Math.random()*1.4).toFixed(2)+'s';const s=sy[k%sy.length],f=cl[s];d.innerHTML=`<svg width="${z}" height="${z}" aria-hidden="true"><use href="#${s}" ${f?`fill="${f}"`:''}/></svg>`;SCR.appendChild(d);setTimeout(()=>d.remove(),5200)}}
+
+function showEnd(){clearInterval(S.tm);const answered=S.ans.filter(a=>a.a).length;const tot=S.ans.reduce((x,a)=>x+a.sec,0);let list='';
+C.forEach((c,ci)=>{list+=`<div style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:${c.fg};margin:10px 0 2px"><i class="ti ${c.i}" aria-hidden="true"></i>${c.n}</div>`;S.ans.forEach((a,k)=>{if(a.ci!==ci)return;list+=`<div style="padding:6px 0 8px;border-bottom:1px dashed #f3d3e2"><div style="font-size:12px;color:#9a6bbd;line-height:1.4">${k+1}. ${a.q}</div><div style="font-size:14px;color:#4a2366;line-height:1.45;margin-top:2px">${a.a?esc(a.a):'<span style="color:#d0606a">Tempo esgotado</span>'}</div></div>`})});
+let top='';['lp','sb','st','gp','hh','pf','ch','st','np'].forEach((s,k)=>{const f=s==='st'?'fill="#c9a7f0"':(s==='hh'?'fill="#f2a0a0"':'');const z=s==='st'?13:(s==='hh'?20:22);top+=`<svg class="${s==='st'?'tw':'sw'}" width="${z}" height="${z}" style="animation-delay:${k*0.3}s" aria-hidden="true"><use href="#${s}" ${f}/></svg>`});
+V.innerHTML=`<div class="pop" style="display:flex;flex-direction:column;height:100%;text-align:center">
+<div style="display:flex;justify-content:center;align-items:center;gap:4px;margin-top:2px">${top}</div>
+<div style="font-family:'Dancing Script',cursive;font-size:34px;color:#c2408a;line-height:1.15;margin-top:4px">Parabéns, ${esc(S.name)}!</div>
+<div style="font-size:14px;color:#7a3e9d;margin-top:2px">Seu diário de autocuidado está pronto</div>
+<div style="display:flex;gap:8px;margin-top:12px"><div style="flex:1;background:#fff;border-radius:16px;padding:8px;border:1.5px solid #f6d9e6"><div style="font-size:20px;font-weight:500;color:#c2408a">${answered}/20</div><div style="font-size:11px;color:#9a6bbd">respondidas</div></div><div style="flex:1;background:#fff;border-radius:16px;padding:8px;border:1.5px solid #ecdcf8"><div style="font-size:20px;font-weight:500;color:#7a3e9d">${fmt(tot)}</div><div style="font-size:11px;color:#9a6bbd">tempo total</div></div></div>
+<div style="flex:1;min-height:0;overflow-y:auto;margin-top:12px;text-align:left;background:#fff;border-radius:18px;border:1.5px solid #f6d9e6;padding:4px 14px 8px">${list}</div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:12px"><button id="np" class="bt"><i class="ti ti-heart" aria-hidden="true"></i> Próxima jogadora</button><button id="rp" class="bt2"><i class="ti ti-refresh" aria-hidden="true"></i> Jogar de novo</button></div></div>`;
+document.getElementById('np').addEventListener('click',()=>{V.innerHTML=START;bindStart()});
+document.getElementById('rp').addEventListener('click',()=>{S.i=0;S.ans=[];showQ()});
+rain()}
+</script>
+</body>
+</html>
